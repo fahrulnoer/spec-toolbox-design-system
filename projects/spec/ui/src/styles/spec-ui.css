@@ -1,0 +1,61 @@
+/*
+ * @spec/ui — brand tokens for SPEC components.
+ * Import once in your global styles:  @import '@spec/ui/styles/spec-ui.css';
+ *
+ * Every component also carries light-mode fallbacks, so it renders correctly without this file;
+ * import it to get dark mode and to override brand values in one place.
+ *
+ * Dark mode follows the same selector you pass to provideSpecUI({ darkModeSelector }) — default `.app-dark`.
+ * If you use another selector, copy the dark block below and change the selector.
+ */
+:root {
+  /* Figma variables 01–07 + other/red */
+  --spec-01: #2bb673;
+  --spec-02: #58595b;
+  --spec-03: #edeef2;
+  --spec-04: #ffffff;
+  --spec-07: #86888e;
+  --spec-red: #d9424d;
+
+  /* Semantic aliases used by the components */
+  --spec-brand: var(--spec-01);
+  --spec-on-brand: #ffffff;
+  --spec-ink-strong: var(--spec-02);
+  --spec-border: var(--spec-03);
+  --spec-muted: var(--spec-07);
+  --spec-danger: var(--spec-red);
+  --spec-danger-soft: rgb(217 66 77 / 0.06);
+  --spec-subtle-bg: #f1f5f9;
+  --spec-raised-bg: #ffffff;
+  --spec-raised-border: #e2e8f0;
+  --spec-success-ink: #22925c;
+  --spec-warning-ink: #f59e0b;
+  --spec-level-bg: #d5f0e3;
+  --spec-level-ink: #1a6d45;
+  --spec-info-bg: #aae2c7;
+  --spec-info-ink: #1a6d45;
+  --spec-shadow-pass: 0 4px 8px rgb(43 182 115 / 0.10);
+  --spec-shadow-fail: 0 4px 8px rgb(217 66 77 / 0.12);
+  --spec-radius: 6px;
+  --spec-font: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.app-dark {
+  --spec-02: #cbd5e1;
+  --spec-03: #334155;
+  --spec-04: #0f172a;
+  --spec-07: #94a3b8;
+  --spec-red: #f87171;
+  --spec-danger-soft: rgb(248 113 113 / 0.10);
+  --spec-subtle-bg: #1e293b;
+  --spec-raised-bg: #0f172a;
+  --spec-raised-border: #334155;
+  --spec-success-ink: #55c58f;
+  --spec-warning-ink: #fbbf24;
+  --spec-level-bg: rgb(85 197 143 / 0.2);
+  --spec-level-ink: #aae2c7;
+  --spec-info-bg: rgb(85 197 143 / 0.3);
+  --spec-info-ink: #d5f0e3;
+  --spec-shadow-pass: none;
+  --spec-shadow-fail: none;
+}

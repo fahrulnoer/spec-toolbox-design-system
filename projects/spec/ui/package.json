@@ -1,0 +1,30 @@
+{
+  "name": "@spec/ui",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "primeng": "^21.1.0",
+    "@primeuix/themes": "^2.0.0",
+    "primeicons": "^7.0.0 || ^8.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "description": "SPEC Toolbox PrimeOne design system \u2014 Angular components and PrimeNG preset",
+  "keywords": [
+    "angular",
+    "primeng",
+    "design-system",
+    "spec-toolbox"
+  ],
+  "exports": {
+    "./styles/spec-ui.css": {
+      "default": "./styles/spec-ui.css"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+<div class="shell" [class.menu-open]="menuOpen()">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="side-top">
+      <a class="brand" href="#introduction" (click)="$event.preventDefault(); nav.go('introduction')">
+        <img src="logo.png" class="logo-light" alt="SPEC Toolbox" width="196" height="22" />
+        <img src="logo-white.png" class="logo-dark" alt="" width="196" height="22" />
+      </a>
+      <span class="ds-pill">DS · PrimeOne</span>
+    </div>
+    <div class="search">
+      <i class="pi pi-search"></i>
+      <input id="nav-search" type="search" placeholder="Find components" aria-label="Find components"
+        [ngModel]="query()" (ngModelChange)="query.set($event)" (keydown)="onSearchKey($event)" />
+      <kbd>/</kbd>
+    </div>
+    <nav class="tree">
+      @for (g of groups(); track g.label) {
+        <div class="grp">
+          <button type="button" class="grp-head" (click)="toggleGroup(g.label)" [attr.aria-expanded]="!collapsed()[g.label]">
+            <i class="pi" [class.pi-chevron-down]="!collapsed()[g.label]" [class.pi-chevron-right]="collapsed()[g.label]"></i>{{ g.label }}
+          </button>
+          @if (!collapsed()[g.label] || query()) {
+            <ul>
+              @for (i of g.items; track i.id) {
+                <li>
+                  <div class="node" [class.active]="i.kind === 'page' && nav.page() === i.id" [class.current]="i.kind === 'doc' && nav.page() === i.id">
+                    @if (i.kind === 'doc') {
+                      <button type="button" class="caret" (click)="toggleItem(i)" [attr.aria-label]="(expanded()[i.id] ? 'Collapse ' : 'Expand ') + i.label">
+                        <i class="pi" [class.pi-chevron-down]="expanded()[i.id] || query()" [class.pi-chevron-right]="!expanded()[i.id] && !query()"></i>
+                      </button>
+                      <i class="pi pi-th-large ico comp"></i>
+                    } @else {
+                      <span class="caret-sp"></span><i class="pi pi-file ico page"></i>
+                    }
+                    <a [href]="'#' + i.id" (click)="$event.preventDefault(); nav.go(i.id)">{{ i.label }}</a>
+                  </div>
+                  @if (i.kind === 'doc' && (expanded()[i.id] || query())) {
+                    <ul class="stories">
+                      <li><a class="leaf" [class.active]="nav.page() === i.id && !nav.anchor()" [href]="'#' + i.id" (click)="$event.preventDefault(); nav.go(i.id)"><i class="pi pi-file ico page"></i>Docs</a></li>
+                      @for (s of stories(i); track s.id) {
+                        <li><a class="leaf" [class.active]="nav.anchor() === s.id" [href]="'#' + s.id" (click)="$event.preventDefault(); nav.go(s.id)"><i class="pi pi-bookmark ico story"></i>{{ s.name }}</a></li>
+                      }
+                    </ul>
+                  }
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      } @empty {
+        <p class="empty">No component matches “{{ query() }}”.</p>
+      }
+    </nav>
+    <div class="side-foot">
+      <span>Angular 21 · PrimeNG 21 (MIT)</span>
+      <span>Figma · DS Spec Toolbox - PrimeOne</span>
+    </div>
+  </aside>
+  <button type="button" class="scrim" aria-label="Close menu" (click)="menuOpen.set(false)"></button>
+
+  <div class="content">
+    <header class="topbar">
+      <button type="button" class="icon-btn menu-btn" (click)="menuOpen.set(!menuOpen())" aria-label="Open menu"><i class="pi pi-bars"></i></button>
+      <div class="crumb"><span>{{ groupOf() }}</span><i class="pi pi-angle-right"></i><strong>{{ current().label }}</strong></div>
+      <div class="top-actions">
+        <a class="icon-btn" href="https://www.figma.com/design/7LD1UbDM1LmCxNNr2jmXfm/DS-Spec-Toolbox---PrimeOne?node-id=9958-20604" target="_blank" rel="noopener" pTooltip="Open in Figma" tooltipPosition="bottom" aria-label="Open in Figma"><i class="pi pi-objects-column"></i></a>
+        <button type="button" class="icon-btn" (click)="setDark(!dark())" [pTooltip]="dark() ? 'Light mode' : 'Dark mode'" tooltipPosition="bottom" [attr.aria-label]="dark() ? 'Switch to light mode' : 'Switch to dark mode'">
+          <i class="pi" [class.pi-moon]="!dark()" [class.pi-sun]="dark()"></i>
+        </button>
+      </div>
+    </header>
+    <main class="main">
+      <ng-container *ngComponentOutlet="current().component" />
+      <footer class="page-foot">SPEC Toolbox Design System · built from the PrimeOne Figma file</footer>
+    </main>
+  </div>
+</div>
+<p-toast position="bottom-center" />
